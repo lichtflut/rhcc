@@ -1,0 +1,94 @@
+namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" prefix "rdf"
+namespace "http://rb.lichtflut.de/common#" prefix "common"
+
+perspective "Organizations" {
+
+  title : "Organizations"
+
+  port {
+
+    widget {
+      title : "My company"
+      implementing-class : "de.lichtflut.rb.webck.components.widgets.builtin.MyCompanyWidget"
+    }
+
+    widget {
+      title : "All organizations"
+      display : "list"
+      action {
+          label : "Add an organization"
+          create : "common:Organization"
+      }
+      selection {
+        query : "'rdf:type'='common:Organization'"
+      }
+      column {
+          label : "Name"
+          property : "common:hasName"
+      }
+      column {
+          label : "General manager"
+          property : "common:hasGeneralManager"
+      }      
+      column {
+          label : "Location"
+          property : "common:hasDomicile"
+      }
+    }
+
+  }
+
+  port {
+  
+    widget {
+      title : "My projects"
+      display : "list"
+      selection {
+        <script>
+          start = query("'rdf:type'='common:Project'");
+          start.filter(function (e) {
+            return e.walk('common:hasMembers').matches('${user.person}');
+          }).result();
+        </script>
+      }
+      column {
+          label : "ID"
+          property : "common:hasID"
+      }
+      column {
+          label : "Title"
+          property : "common:hasTitle"
+      }
+      column {
+          label : "Lead"
+          property : "common:hasLead"
+      }
+    }
+
+    widget {
+      title : "All projects"
+      display : "list"
+      action {
+          label : "Add a project"
+          create : "common:Project"
+      }
+      selection {
+        query : "'rdf:type'='common:Project'"
+      }
+      column {
+          label : "ID"
+          property : "common:hasID"
+      }
+      column {
+          label : "Title"
+          property : "common:hasTitle"
+      }
+      column {
+          label : "Lead"
+          property : "common:hasLead"
+      }
+    }
+
+  }
+
+}

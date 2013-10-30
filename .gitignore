@@ -16,3 +16,16 @@ tmp
 .yardoc
 _yardoc
 doc/
+
+target
+.project
+.classpath
+.settings
+.idea
+*.iml
+*.ipr
+*.iws
+*.tmprojtest
+*~
+.DS_Store
+scripts/config.yaml
